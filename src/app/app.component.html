@@ -62,6 +62,8 @@
 
   <section id="form1" *ngSwitchCase="'form-todo'">
   <form>
+  <h2 *ngIf="viewMode == 'form-cat'"> Add Category</h2>
+  <h2 *ngIf="viewMode == 'form-todo'"> Add Todo</h2>
     <div class="form-group">
       <label for="title"><span class="required">*</span>Title:</label>
       <input type="text" name="name" [(ngModel)]="todoTitle" />
