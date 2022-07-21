@@ -1,0 +1,86 @@
+<!-- Header -->
+<header id="header" class="card">
+  <h1>To Do App</h1>
+</header>
+
+<!-- Main Content (left) -->
+<main id="main" [ngSwitch]="viewMode">
+  <!-- Sidebar (right) -->
+  <aside id="sidebar" class="card" *ngSwitchCase="'default'">
+    <h2 role="heading">Catagories</h2>
+    <!-- Navigation -->
+    <nav class="cat-nav">
+      <ul id="main-nav">
+        <li
+          *ngFor="let Category of Catagories"
+          (click)="handleCategorySelect(Category)"
+          [ngClass]="{
+            'selected-category': selectedCategory?.title === Category.title
+          }"
+        >
+          {{ Category.title }}
+        </li>
+      </ul>
+    </nav>
+    <button (click)="updateView('form-cat')">+</button>
+  </aside>
+
+  <!-- Blog Section -->
+  <section id="blog" *ngSwitchCase="'default'">
+    <h2 *ngIf="selectedCategory?.title" role="heading">
+      {{ selectedCategory.title }} - Todos
+    </h2>
+    <!-- Todo List -->
+    <article class="article">
+      <ul>
+        <li *ngFor="let todo of filteredTodos">{{ todo.title }}</li>
+      </ul>
+    </article>
+    <button (click)="updateView('form-todo')">+</button>
+  </section>
+
+  <section id="form1" *ngSwitchCase="'form-cat'">
+    <form>
+      <div class="form-group">
+        <label for="title"><span class="required">*</span>Title:</label>
+        <input type="text" name="name" [(ngModel)]="todoTitle" />
+      </div>
+      <div class="btn-grp">
+        <button class="btn btn-success" type="button" (click)="onAddTodo()">
+          Save
+        </button>
+        <button
+          class="btn btn-warning ml-1"
+          type="button"
+          (click)="onFormReset()"
+        >
+          Cancel
+        </button>
+      </div>
+    </form>
+  </section>
+
+  <section id="form1" *ngSwitchCase="'form-todo'">
+  <form>
+    <div class="form-group">
+      <label for="title"><span class="required">*</span>Title:</label>
+      <input type="text" name="name" [(ngModel)]="todoTitle" />
+    </div>
+    <div class="btn-grp">
+      <button class="btn btn-success" type="button" (click)="onAddTodo()">
+        Save
+      </button>
+      <button
+        class="btn btn-warning ml-1"
+        type="button"
+        (click)="onFormReset()"
+      >
+        Cancel
+      </button>
+    </div>
+  </form>
+</section>
+
+
+
+</main>
