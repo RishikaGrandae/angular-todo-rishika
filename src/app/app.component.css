@@ -12,7 +12,7 @@ ul li:hover{
 }
 
 .cat-nav{
-  min-height: 500px;
+  min-height: 300px;
 }
 
 li{
@@ -24,7 +24,7 @@ button{
 }
 
 article{
-  min-height:  560px;
+  min-height:  360px;
 }
 #header {
   background: #333;
