@@ -85,3 +85,7 @@ section{
   cursor: pointer;
   color:#fff;
 }
+
+.delete-one{
+  float:right;
+}

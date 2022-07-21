@@ -17,12 +17,30 @@ export class AppComponent {
 
   constructor() {
     this.Catagories = ['Test'];
-    this.Todos = []
+    this.Todos = [];
   }
 
   updateView(mode: string) {
-    this.viewMode = mode;
+    if (mode === 'form-todo' && !this.selectedCategory) {
+      alert(' Please select or add category');
+    } else {
+      this.viewMode = mode;
+    }
   }
+
+  changeCheckbox(Todos, i) {
+    if (Todos) {
+      this.Todos[i].isSelected = !this.Todos[i].isSelected;
+      this.filteredTodos = this.Todos;      
+    }
+  }
+
+  deleteItem(it){
+    console.log(it)
+    this.filteredTodos = this.filteredTodos.filter(x => x.title != it.title); 
+    this.Todos = this.Todos.filter(x => x.title != it.title); 
+  }
+
 
   onFormReset() {
     this.viewMode = 'default';
@@ -30,7 +48,9 @@ export class AppComponent {
 
   handleCategorySelect(t) {
     this.selectedCategory = t;
-    this.filteredTodos = this.Todos.filter(todo => todo.selectedCategory == this.selectedCategory)
+    this.filteredTodos = this.Todos.filter(
+      (todo) => todo.selectedCategory == this.selectedCategory
+    );
   }
 
   onAddTodo() {
@@ -41,13 +61,14 @@ export class AppComponent {
         this.viewMode = 'default';
         break;
       case 'form-todo':
-        // this.Todos[].push({ title: this.todoTitle, isSelected: false });
         this.Todos.push({
           title: this.todoTitle,
           isSelected: false,
           selectedCategory: this.selectedCategory
         });
-        this.filteredTodos = this.Todos.filter(todo => todo.selectedCategory == this.selectedCategory)
+        this.filteredTodos = this.Todos.filter(
+          (todo) => todo.selectedCategory == this.selectedCategory
+        );
         this.todoTitle = '';
         this.viewMode = 'default';
         break;

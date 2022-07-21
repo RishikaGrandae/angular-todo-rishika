@@ -27,19 +27,33 @@
 
   <!-- Blog Section -->
   <section id="blog" *ngSwitchCase="'default'">
-    <h2 *ngIf="selectedCategory?.title" role="heading">
-      {{ selectedCategory.title }} - Todos
+    <h2 *ngIf="selectedCategory?.title && filteredTodos.length" role="heading">
+     Plan {{ filteredTodos.length }} - Today
     </h2>
     <!-- Todo List -->
     <article class="article">
       <ul>
-        <li *ngFor="let todo of filteredTodos">{{ todo.title }}</li>
+        <li *ngFor="let todo of filteredTodos">
+        <label class="form-check-label" for="tag{{todo.title}}">
+        <input
+          class="form-check-input"
+          type="checkbox"
+          id="todo{{todo.title}}"
+          name="tagOptions"
+          (change)="changeCheckbox(i)"
+          [checked]="todo.isSelected" />
+        {{todo.title}}
+        
+      </label>
+      <button class="delete-one" (click)="deleteItem(todo)"> X </button> </li>
       </ul>
     </article>
     <button (click)="updateView('form-todo')">+</button>
   </section>
 
   <section id="form1" *ngSwitchCase="'form-cat'">
+    <h2 *ngIf="viewMode == 'form-cat'"> Add Category</h2>
+    <h2 *ngIf="viewMode == 'form-todo'"> Add Todo</h2>
     <form>
       <div class="form-group">
         <label for="title"><span class="required">*</span>Title:</label>
@@ -62,8 +76,6 @@
 
   <section id="form1" *ngSwitchCase="'form-todo'">
   <form>
-  <h2 *ngIf="viewMode == 'form-cat'"> Add Category</h2>
-  <h2 *ngIf="viewMode == 'form-todo'"> Add Todo</h2>
     <div class="form-group">
       <label for="title"><span class="required">*</span>Title:</label>
       <input type="text" name="name" [(ngModel)]="todoTitle" />
